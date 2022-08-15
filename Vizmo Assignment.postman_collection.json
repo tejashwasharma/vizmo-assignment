@@ -1,0 +1,272 @@
+{
+	"info": {
+		"_postman_id": "f36bc92a-1e73-4ddd-8a7a-c20340dcfb11",
+		"name": "Vizmo Assignment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "backend",
+			"item": [
+				{
+					"name": "Auth",
+					"item": [
+						{
+							"name": "admin login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const jsonData = pm.response.json();",
+											"const token = jsonData.token;",
+											"console.log(jsonData.token);",
+											"pm.environment.set(\"AUTH_TOKEN\", token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"admin@vizmo.com\",\n    \"password\": \"admin@1234\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/auth/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const jsonData = pm.response.json();",
+											"const token = jsonData.token;",
+											"console.log(jsonData.token);",
+											"pm.environment.set(\"AUTH_TOKEN\", token);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"tejsharma407@gmail.com\",\n    \"password\": \"Tej@1234\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/auth/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "create",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"tejsharma407@gmail.com\",\n    \"password\": \"Tej@1234\",\n    \"name\": \"Tejashwa Sharma\",\n    \"isAdmin\": false\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/user/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"user",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Seat",
+					"item": [
+						{
+							"name": "get by id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/seat/62faa34a7d10db424bb9cd4a",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"seat",
+										"62faa34a7d10db424bb9cd4a"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "block seat",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"_id\": \"62faa34a7d10db424bb9cd4a\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/seat/block",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"seat",
+										"block"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "confirm booking",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "{{AUTH_TOKEN}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"_id\": \"62faa34a7d10db424bb9cd4a\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8000/seat/confirm-book",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"seat",
+										"confirm-book"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getAll",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjYyZmFhMzNmN2QxMGRiNDI0YmI5Y2QzMSIsImlhdCI6MTY2MDU5MzEyMX0.J-zBCAns2RVM7lT7tTU9xT5q7DB0TWzsLM364w8wqzs",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8000/seat/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8000",
+									"path": [
+										"seat",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
